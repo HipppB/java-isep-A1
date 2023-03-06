@@ -3,8 +3,8 @@ package chess;
 import chess.piece.Piece;
 
 public class Cell {
-    private int x;
-    private int y;
+    final int x;
+    final int y;
     private Piece piece;
 
     public Cell(int x, int y) {
@@ -30,7 +30,7 @@ public class Cell {
 
     public void print() {
         if (piece == null) {
-            System.out.print(" ");
+            System.out.print("   ");
         } else {
             piece.print();
         }
@@ -43,9 +43,8 @@ public class Cell {
         return this.piece == null;
     }
     public boolean checkCoordinates(int testedX, int testedY) {
-        if(this.x == testedX && this.y == testedY)
-            return true;
-        return false;
+        return this.x == testedX && this.y == testedY;
     }
+
 
 }

@@ -26,8 +26,9 @@ public class Chess {
                     move = askMove();
                 }
                 while (!isValidMove(move));
-                // check if move is valid
                 // move piece
+                executeMove(move);
+                System.out.println("HERE");
                 switchPlayer();
 
             }
@@ -42,27 +43,38 @@ public class Chess {
         return scanner.nextLine();
     }
 
+
+    private void executeMove(String move) {
+        // Execute the move
+        try {
+            Cell[] cells = parseMove(move);
+            assert cells != null;
+            cells[1].setPiece(cells[0].getPiece());
+            cells[0].getPiece().hasMooved();
+            cells[0].setPiece(null);
+        } catch (NullPointerException e) {
+            System.out.println("Invalid move, please enter a valid move");
+        }
+    }
     private boolean isValidMove(String move) {
         // Check if the move is valid
         Cell[] cells = parseMove(move);
-        if(cells == null) {
+        if(cells == null || cells[0].isEmpty()) {
             System.out.println("Invalid move, please enter a valid move");
             return false;
         }
 
         // Start cell must container player's piece and end cell must not contain player's piece
-        if(!cells[0].getPiece().getOwner().equals(currentPlayer) || cells[1].getPiece().getOwner().equals(currentPlayer)) {
-            System.out.println("Invalid move, you cannot move this piece to this cell");
+        if(cells[0].getPiece().getOwner().equals(currentPlayer)) {
+            System.out.println("Invalid move, you can only move your piece");
             return false;
         }
 
         // Piece in start cell must be able to move to end cell
         if(!cells[0].getPiece().canMove(board, cells[0], cells[1])) {
-            System.out.println("Invalid move, piece cannot move to this cell");
+            System.out.println("The move is not valid");
             return false;
         }
-
-
         return true;
     }
     private Cell[] parseMove(String move) {
@@ -96,7 +108,7 @@ public class Chess {
     }
 
     private void printBoard() {
-        System.out.println("  A B C D E F G H");
+        System.out.println("   A  B  C  D  E  F  G  H");
         for (int y = 0; y < 8; y++) {
             System.out.print(y + 1);
             for (int x = 0; x < 8; x++) {
@@ -142,8 +154,6 @@ public class Chess {
         board[5][7].setPiece(new Bishop(players[1]));
         board[6][7].setPiece(new Knight(players[1]));
         board[7][7].setPiece(new Rook(players[1]));
-
-
 
     }
 
