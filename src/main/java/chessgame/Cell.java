@@ -1,6 +1,6 @@
-package chess;
+package chessgame;
 
-import chess.piece.Piece;
+import chessgame.piece.Piece;
 
 public class Cell {
     final int x;

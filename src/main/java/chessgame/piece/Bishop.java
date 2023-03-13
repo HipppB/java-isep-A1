@@ -1,8 +1,8 @@
-package chess.piece;
+package chessgame.piece;
 
-import chess.Cell;
-import chess.Player;
-import chess.Player.Color;
+import chessgame.Cell;
+import chessgame.Player;
+import chessgame.Player.Color;
 
 public class Bishop extends Piece {
     public Bishop(Player owner) {

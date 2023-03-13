@@ -1,7 +1,7 @@
-package chess;
+package chessgame;
 
-import chess.Player.Color;
-import chess.piece.*;
+import chessgame.Player.Color;
+import chessgame.piece.*;
 
 import java.util.Scanner;
 
@@ -9,6 +9,8 @@ public class Chess {
     private Player[] players;
     private Cell[][] board;
     private Player currentPlayer;
+
+
 
     public void play() {
         // Game loop
@@ -28,10 +30,14 @@ public class Chess {
                 while (!isValidMove(move));
                 // move piece
                 executeMove(move);
-                System.out.println("HERE");
+                // switch player
                 switchPlayer();
 
+                //this.isCheck();
+
             }
+            System.out.println("Checkmate");
+            System.out.println("Player " + currentPlayer.toSimpleString() + " wins");
         }
 
     }
@@ -39,7 +45,7 @@ public class Chess {
     private String askMove() {
         // Ask the user for a move and return it
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your move (Exemple : A2 A4): ");
+        System.out.println("Enter your move (Example : A2 A4): ");
         return scanner.nextLine();
     }
 
@@ -52,6 +58,9 @@ public class Chess {
             cells[1].setPiece(cells[0].getPiece());
             cells[0].getPiece().hasMooved();
             cells[0].setPiece(null);
+            if(cells[1].getPiece() instanceof King) {
+                currentPlayer.setKingCell(cells[1]); // Track the king's position
+            }
         } catch (NullPointerException e) {
             System.out.println("Invalid move, please enter a valid move");
         }
@@ -65,7 +74,7 @@ public class Chess {
         }
 
         // Start cell must container player's piece and end cell must not contain player's piece
-        if(cells[0].getPiece().getOwner().equals(currentPlayer)) {
+        if(!cells[0].getPiece().getOwner().equals(currentPlayer)) {
             System.out.println("Invalid move, you can only move your piece");
             return false;
         }
@@ -102,9 +111,51 @@ public class Chess {
         currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
     }
     private boolean checkmate() {
-        // Analyse the board to see if the current player is in checkmate
-
+        if(isCheck() != null && !isCheck().equals(currentPlayer)) { // If it is the current player he may succeed to avoid checkmate
+            return true;
+        }
         return false;
+    }
+
+    private Cell searchKing(Player player) {
+        // Search the king of the player
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(!board[i][j].isEmpty() && board[i][j].getPiece() instanceof King && board[i][j].getPiece().getOwner().equals(player)) {
+                    return board[i][j];
+                }
+            }
+        }
+        return null;
+    }
+    private Player isCheck() {
+        // Analyse the board to see if the current player is in checkmate
+        // For each piece we see if it can move to the enemy king
+        Cell kingCellPlayer0 = this.searchKing(players[0]);
+        Cell kingCellPlayer1 = this.searchKing(players[1]);
+
+       /*  A king is Check if a piece can get to it
+        System.out.println("Player " + players[0].toSimpleString() + " king is at " + kingCellPlayer0.getX() + " " + kingCellPlayer0.getY());
+        System.out.println("Player " + players[1].toSimpleString() + " king is at " + kingCellPlayer1.getX() + " " + kingCellPlayer1.getY());*/
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(!board[i][j].isEmpty() && board[i][j].getPiece().getOwner().equals(players[0])) {
+                    if(board[i][j].getPiece().canMove(board, board[i][j], kingCellPlayer1)) {
+                        System.out.println("Player " + players[1].toSimpleString() + " is in check");
+                        return players[1];
+                    }
+                }
+                else if(!board[i][j].isEmpty() && board[i][j].getPiece().getOwner().equals(players[1])) {
+                    if(board[i][j].getPiece().canMove(board, board[i][j], kingCellPlayer0)) {
+                        System.out.println("Player " + players[0].toSimpleString() + " is in check");
+                        return players[0];
+
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     private void printBoard() {
@@ -121,6 +172,7 @@ public class Chess {
         players = new Player[2];
         players[0] = new Player(Color.WHITE);
         players[1] = new Player(Color.BLACK);
+
     }
 
     private void initializeBoard() {
@@ -134,11 +186,17 @@ public class Chess {
         for (int i = 0; i < 8; i++) {
             board[i][1].setPiece(new Pawn(players[0]));
         }
+        // create first player pieces
+
+
+        // place first player pieces on the board
         board[0][0].setPiece(new Rook(players[0]));
         board[1][0].setPiece(new Knight(players[0]));
         board[2][0].setPiece(new Bishop(players[0]));
         board[3][0].setPiece(new Queen(players[0]));
         board[4][0].setPiece(new King(players[0]));
+        players[0].setKingCell(board[4][0]);
+
         board[5][0].setPiece(new Bishop(players[0]));
         board[6][0].setPiece(new Knight(players[0]));
         board[7][0].setPiece(new Rook(players[0]));
@@ -151,6 +209,7 @@ public class Chess {
         board[2][7].setPiece(new Bishop(players[1]));
         board[3][7].setPiece(new Queen(players[1]));
         board[4][7].setPiece(new King(players[1]));
+        players[1].setKingCell(board[4][7]);
         board[5][7].setPiece(new Bishop(players[1]));
         board[6][7].setPiece(new Knight(players[1]));
         board[7][7].setPiece(new Rook(players[1]));

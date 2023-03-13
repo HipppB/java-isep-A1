@@ -1,15 +1,14 @@
-package chess.piece;
+package chessgame.piece;
 
-import chess.Cell;
-import chess.Player;
-import chess.Player.Color;
+import chessgame.Cell;
+import chessgame.Player;
+import chessgame.Player.Color;
 
 public class King extends Piece {
     public King(Player owner) {
         super(owner);
         this.setUnicode(getUnicode());
     }
-
 
     private char getUnicode() {
         if (this.getOwner().getColor() == Color.WHITE) {

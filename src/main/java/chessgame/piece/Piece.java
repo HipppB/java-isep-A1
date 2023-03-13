@@ -1,7 +1,7 @@
-package chess.piece;
+package chessgame.piece;
 
-import chess.Cell;
-import chess.Player;
+import chessgame.Cell;
+import chessgame.Player;
 
 public abstract class Piece {
     public Player owner;
@@ -38,7 +38,7 @@ public abstract class Piece {
         if(!endCell.isEmpty() && endCell.getPiece().getOwner().getColor().equals(this.getOwner().getColor())) return false;
         // we only check if the end Cell is accessible by the Piece
         if(this.canMoveSpecific(board, startCell, endCell)) return true;
-        System.out.println("This piece cannot move");
+        // System.out.println("This piece cannot move");
         return false; // By default, a piece cannot move, this is overridden in the subclasses
     }
     public boolean canMoveSpecific(Cell[][] board, Cell startCell, Cell endCell) {

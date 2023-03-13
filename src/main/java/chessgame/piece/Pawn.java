@@ -1,7 +1,7 @@
-package chess.piece;
-import chess.Cell;
-import chess.Player;
-import chess.Player.Color;
+package chessgame.piece;
+import chessgame.Cell;
+import chessgame.Player;
+import chessgame.Player.Color;
 
 public class Pawn extends Piece {
 
