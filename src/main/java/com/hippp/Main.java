@@ -1,6 +1,7 @@
 package com.hippp;
 
 public class Main {
+
     public static void main(String[] args) {
         if(args.length == 0) {
             System.out.println("No arguments passed");
@@ -19,6 +20,8 @@ public class Main {
                 System.out.println("Please pass either 'harrypotter' or 'chessgame' as an argument");
                 System.exit(0);
         }
+
+
 
 
     }
