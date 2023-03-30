@@ -1,11 +1,13 @@
 package com.hippp.harrypotter.game.level;
 
-import com.hippp.harrypotter.game.character.Dialogs;
+import com.hippp.harrypotter.game.actions.ActionTalk;
+import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.character.enemy.Enemy;
 import com.hippp.harrypotter.game.objects.AbstractObject;
 import com.hippp.harrypotter.game.objects.Rock;
+import com.hippp.harrypotter.game.spell.normal.Spell;
 
 public class FirstYear extends AbstractLevel {
 
@@ -29,14 +31,14 @@ public class FirstYear extends AbstractLevel {
 
         // create dialogs
 
-        Dialogs welcomeDialog = new Dialogs(new String[]{
+        ActionTalk welcomeDialog = new ActionTalk(new String[]{
                 "Welcome to Poudlard !",
                 "I'm Professeur McGonagall, the headmaster of this school.",
                 "I'm sure you'll have a great time here !"
         }, null, false);
         professorMcGonagall.addDialogue(welcomeDialog);
 
-        Dialogs InfoDialog = new Dialogs(new String[]{
+        ActionTalk InfoDialog = new ActionTalk(new String[]{
                 "Hey ! I hope you are doing well !",
                 "Wow, you got a wand !",
                 "I'm sure you'll be able to do great things with it !",
@@ -45,17 +47,20 @@ public class FirstYear extends AbstractLevel {
                 "Do you want to see the spell I've just learned ?"
         }, null, false);
 
-        Dialogs giveSpellDialog = new Dialogs(new String[]{
+        Spell wingardiumLeviosa = new Spell("Wingardium LeviOsa");
+        ActionTrade giveSpell = new ActionTrade(null, null, new Spell[]{wingardiumLeviosa}, null);
+        ActionTalk giveSpellDialog = new ActionTalk(new String[]{
                 "I will teach you the spell 'Wingardium Leviosa' !",
                 "It will allow you to move objects with your wand !",
                 "But be careful, you can't move everything ! Only some objects !",
 
-        }, null, false);
+        }, new ActionTrade[]{giveSpell}, false);
 
 
         hermioneGranger.addDialogue(InfoDialog);
+        hermioneGranger.addDialogue(giveSpellDialog);
 
-        Dialogs infoDialog2 = new Dialogs(new String[]{
+        ActionTalk infoDialog2 = new ActionTalk(new String[]{
                 "Hello ! I'm Professeur Flitwick, the head of the Ravenclaw house.",
                 "You should be careful with the troll !",
                 "Just thinking about him makes me shiver !"

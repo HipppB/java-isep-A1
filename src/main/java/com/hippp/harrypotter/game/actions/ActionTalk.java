@@ -1,22 +1,19 @@
-package com.hippp.harrypotter.game.character;
+package com.hippp.harrypotter.game.actions;
 
-import com.hippp.harrypotter.game.actions.ActionTrade;
-import lombok.Getter;
-
-public class Dialogs {
+public class ActionTalk extends ActionAbstract {
 
     private String[] dialog;
 
-    private Dialogs previousDialog;
-    private Dialogs nextDialog;
+    private ActionTalk previousDialog;
+    private ActionTalk nextDialog;
 
-    @Getter
     private ActionTrade[] actionTrades;
 
     private boolean isRead;
     private boolean isLocked;
 
-    public Dialogs(String[] dialog, ActionTrade[] actionTrades, Boolean locked) {
+    public ActionTalk(String[] dialog, ActionTrade[] actionTrades, Boolean locked) {
+        super("Talk", ActionTypes.TALK, 0);
         this.dialog = dialog;
         this.isRead = false;
         this.isLocked = locked;
@@ -25,12 +22,12 @@ public class Dialogs {
 
     }
 
-    public void addDialog(Dialogs dialogs) {
+    public void addDialog(ActionTalk actionTalk) {
         if (this.nextDialog == null) {
-            dialogs.previousDialog = this;
-            this.nextDialog = dialogs;
+            actionTalk.previousDialog = this;
+            this.nextDialog = actionTalk;
         } else {
-            this.nextDialog.addDialog(dialogs);
+            this.nextDialog.addDialog(actionTalk);
         }
     }
 
@@ -42,6 +39,15 @@ public class Dialogs {
             return dialog;
         }
         return new String[]{"Hello !"};
+    }
+
+    public ActionTrade[] getActionTrades(int index) {
+        if (index == 0) {
+            return this.actionTrades;
+        } else if (this.nextDialog != null) {
+            return this.nextDialog.getActionTrades(index - 1);
+        }
+        return null;
     }
 
     void unlockNextDialog() {

@@ -2,10 +2,13 @@ package com.hippp.harrypotter.console;
 
 import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.console.board.Cell;
+import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.actions.ActionTrade;
-import com.hippp.harrypotter.game.character.Dialogs;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.enemy.Enemy;
+import com.hippp.harrypotter.game.spell.normal.Spell;
+
+import java.util.HashMap;
 
 public class Display {
     public Display() {
@@ -119,15 +122,42 @@ public class Display {
     }
 
 
+    public static void displayList(String[] list) {
+        for (int i = 0; i < list.length; i++) {
+            System.out.println(i + " - " + list[i]);
+        }
+    }
+
+
     public static void trade(ActionTrade actionTrade) {
         System.out.println();
-        Dialogs dialog = actionTrade.getDialog();
+        ActionTalk dialog = actionTrade.getDialog();
         if (dialog != null) {
             dialog(dialog.getDialog());
         }
 
     }
-//    public static
+
+    public static void displayStats(int nbSpell, int nbPotion, int nbLife) {
+        // TODO
+        System.out.printf("Known spell(s) : %d [SP]; Potion in inventory : %d [P]; Life : %d%n", nbSpell, nbPotion, nbLife);
+
+    }
+
+    public static void displaySpellList(HashMap<String, Spell> spellList) {
+        System.out.println("Known spells : ");
+        for (String spellName : spellList.keySet()) {
+            System.out.println(spellName);
+        }
+        if (spellList.isEmpty()) {
+            System.out.println("You don't know any spell yet, go learn some !");
+        }
+
+    }
+
+    public static void spellAquired(String spellName) {
+        System.out.println("You have aquired the spell " + spellName);
+    }
 
 
 }

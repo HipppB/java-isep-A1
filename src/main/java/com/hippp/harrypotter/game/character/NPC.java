@@ -1,23 +1,29 @@
 package com.hippp.harrypotter.game.character;
 
+import com.hippp.harrypotter.game.actions.ActionAbstract;
+import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import lombok.Getter;
 
 public class NPC extends Character {
 
+    private ActionAbstract[] actions;
+
     @Getter
     private boolean canTalk;
 
-    private Dialogs dialogs;
+    private ActionTalk actionTalk;
 
     @Getter
     private int dialogueIndex;
 
-    public NPC(String name, Dialogs dialogs) {
+    private int maxDialogueIndex;
+
+    public NPC(String name, ActionTalk actionTalk) {
         super(name, 10000, 0);
         this.canTalk = true;
         this.dialogueIndex = 0;
-        this.dialogs = dialogs;
+        this.actionTalk = actionTalk;
     }
 
     public NPC(String name) {
@@ -27,8 +33,16 @@ public class NPC extends Character {
     }
 
     public String[] talk() {
-        if (canTalk && this.dialogs != null) {
-            String[] dialogue = this.dialogs.getDialog();
+        if (canTalk && this.actionTalk != null) {
+            String[] dialogue = this.actionTalk.getDialog();
+            if (dialogue != null) {
+                this.dialogueIndex++;
+            } else {
+                this.dialogueIndex = 0;
+            }
+            if (this.maxDialogueIndex < this.dialogueIndex) {
+                this.maxDialogueIndex = this.dialogueIndex;
+            }
             return dialogue;
         } else {
             return new String[]{
@@ -39,17 +53,29 @@ public class NPC extends Character {
     }
 
     public ActionTrade[] getTrades() {
-        if (this.dialogs != null) {
-            return this.dialogs.getActionTrades();
+        if (this.actionTalk != null) {
+            return this.actionTalk.getActionTrades(this.maxDialogueIndex - 1);
         }
         return null;
     }
 
-    public void addDialogue(Dialogs dialogue) {
-        if (this.dialogs == null) {
-            this.dialogs = dialogue;
+    public String[] trade(ActionTrade trade, Wizard wizard) {
+        ActionTrade[] trades = this.getTrades();
+        if (trades != null) {
+            for (ActionTrade t : trades) {
+                if (t == trade) {
+                    t.execute(wizard);
+                }
+            }
+        }
+        return null;
+    }
+
+    public void addDialogue(ActionTalk dialogue) {
+        if (this.actionTalk == null) {
+            this.actionTalk = dialogue;
         } else {
-            this.dialogs.addDialog(dialogue);
+            this.actionTalk.addDialog(dialogue);
         }
     }
 }

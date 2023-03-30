@@ -4,7 +4,7 @@ import com.hippp.harrypotter.console.Display;
 import com.hippp.harrypotter.console.InputParser;
 import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.game.Game;
-import com.hippp.harrypotter.game.character.Dialogs;
+import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.level.FirstYear;
 import com.hippp.harrypotter.game.objects.AbstractObject;
@@ -37,7 +37,11 @@ public class One {
 
         // Start first year loop
         while (((FirstYear) game.getCurrentLevel()).isRunning()) {
-            inputParser.waitForMove(game, board);
+
+
+            InputParser.parseActions(inputParser.waitForMove(game, board), game);
+
+
             if (this.currentStep == 0 && firstObjective(game, board)) {
                 initPhase2(game, board);
                 this.currentStep++;
@@ -47,6 +51,7 @@ public class One {
                 this.currentStep++;
             }
 
+            inputParser.parseAndDisplayStats(game.getWizard());
             Display.printBoard(board);
             ((FirstYear) game.getCurrentLevel()).checkStatus();
 
@@ -54,6 +59,7 @@ public class One {
 
 
     }
+
 
     private boolean firstObjective(Game game, Board board) {
         // If player has not visited the four corners we return false
@@ -84,7 +90,7 @@ public class One {
         board.setInCase(4, 9, npcs[2]);
         board.setInCase(2, 2, npcs[3]);
 
-        Dialogs additionalDialogs = new Dialogs(
+        ActionTalk additionalActionTalk = new ActionTalk(
                 new String[]{
                         "The Troll ?",
                         "I never saw him, but I heard he was a big one !",
@@ -93,9 +99,9 @@ public class One {
                         "I won't try to find him, I'm not brave enough !",
                 }, null, false
         );
-        npcs[0].addDialogue(additionalDialogs);
-        
-        board.setPlayer(14, 7, game.getWizard());
+        npcs[0].addDialogue(additionalActionTalk);
+
+        board.setPlayer(4, 7, game.getWizard()); //TODO: change 4 to 14
 
     }
 

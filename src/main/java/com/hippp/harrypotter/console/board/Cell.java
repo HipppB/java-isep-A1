@@ -1,9 +1,9 @@
 package com.hippp.harrypotter.console.board;
 
 import com.hippp.harrypotter.console.Display;
+import com.hippp.harrypotter.game.actions.ActionAbstract;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.Character;
-import com.hippp.harrypotter.game.character.Dialogs;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.objects.AbstractObject;
@@ -40,33 +40,24 @@ public class Cell {
         }
     }
 
-    void interactWith() {
+    ActionAbstract[] interactWith() {
         if (isEmpty()) {
-            return;
+            return null;
         } else if (this.object != null) {
             AbstractObject object = this.object.interact();
-            return;
+            return null;
         } else if (this.character != null && this.character instanceof NPC) {
             String[] dialog = ((NPC) this.character).talk();
             if (dialog != null) {
                 Display.dialog(dialog);
                 ActionTrade[] actionTrades = ((NPC) this.character).getTrades();
                 if (actionTrades != null) {
-                    for (ActionTrade actionTrade :
-                            actionTrades) {
-                        Dialogs tradeDialog = actionTrade.getDialog();
-                        if (tradeDialog != null) {
-                            Display.dialog(tradeDialog.getDialog());
-                        }
-
-                        Display.trade(actionTrade);
-
-                    }
+                    return actionTrades;
                 }
-                return;
+                return null;
             }
         }
-
+        return null;
     }
 
 

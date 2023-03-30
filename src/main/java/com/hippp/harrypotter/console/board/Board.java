@@ -60,7 +60,10 @@ public class Board {
             this.playerPosition[1] += dy;
             this.board[this.playerPosition[0]][this.playerPosition[1]].setInCase(this.player);
         } else {
-            this.board[this.playerPosition[0] + dx][this.playerPosition[1] + dy].interactWith();
+            ActionAbstract[] possibleActions = this.board[this.playerPosition[0] + dx][this.playerPosition[1] + dy].interactWith();
+            if (possibleActions != null) {
+                return possibleActions;
+            }
         }
         return null;
 
