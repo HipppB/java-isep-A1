@@ -4,6 +4,7 @@ import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.console.level.One;
 import com.hippp.harrypotter.game.Game;
 import com.hippp.harrypotter.game.actions.ActionAbstract;
+import com.hippp.harrypotter.game.actions.ActionAttack;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.potion.Potion;
@@ -151,7 +152,6 @@ public class InputParser {
     }
 
     public static String[] parseActions(ActionAbstract[] actions, Game game) {
-        System.out.println("Parsing actions" + Arrays.toString(actions)); // TODO remove line
         if (actions == null) return null;
         Map<String, String> responses;
         for (ActionAbstract action : actions) {
@@ -166,6 +166,9 @@ public class InputParser {
                         Display.spellAquired(spell.getName());
                     }
                 }
+            }
+            if (action instanceof ActionAttack) {
+                ((ActionAttack) action).execute(game.getWizard());
             }
         }
 

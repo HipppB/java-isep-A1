@@ -67,7 +67,8 @@ public class Board {
                 || position[1] + dy < 0
                 || position[1] + dy > BOARD_WIDTH - 1
         ) return null;
-        if (this.board[position[0] + dx][position[1] + dy].isEmpty()) {
+        Cell destinationCell = this.board[position[0] + dx][position[1] + dy];
+        if (destinationCell.isEmpty()) {
             if (this.player.getHeldObject() != null && this.getDistance(new int[]{position[0] + dx, position[1] + dy}, this.playerPosition) > 3) {
                 Display.displayMessage("You tried to move the object too far away from you. It fell on the ground.");
                 Display.displayMessage("You were suprized by the noise and lost your concentration. You lost 10 points of health.");
@@ -80,13 +81,13 @@ public class Board {
             position[0] += dx;
             position[1] += dy;
             if (this.player.getHeldObject() == null) {
-                this.board[position[0]][position[1]].setInCase(this.player);
+                destinationCell.setInCase(this.player);
             } else {
-                this.board[position[0]][position[1]].setInCase(this.player.getHeldObject());
+                destinationCell.setInCase(this.player.getHeldObject());
             }
             System.out.println("Moved to " + position[0] + " " + position[1]); // TODO remove this line
         } else {
-            ActionAbstract[] possibleActions = this.board[position[0] + dx][position[1] + dy].interactWith(this.player);
+            ActionAbstract[] possibleActions = destinationCell.interactWith(this.player);
             if (possibleActions != null) {
                 return possibleActions;
             }

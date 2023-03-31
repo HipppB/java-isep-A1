@@ -6,6 +6,7 @@ import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.Character;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.Wizard;
+import com.hippp.harrypotter.game.character.enemy.Enemy;
 import com.hippp.harrypotter.game.objects.AbstractObject;
 import com.hippp.harrypotter.game.spell.normal.Spell;
 import lombok.Getter;
@@ -36,6 +37,14 @@ public class Cell {
         return this.object == null && this.character == null;
     }
 
+    public boolean isObject() {
+        return this.object != null;
+    }
+
+    public boolean isCharacter() {
+        return this.character != null;
+    }
+
     public void setInCase(AbstractObject object) {
         this.object = object;
     }
@@ -48,33 +57,30 @@ public class Cell {
     }
 
     ActionAbstract[] interactWith(Wizard wizard) {
-        System.out.println("Interact with " + this.character + this.object);
         if (isEmpty()) {
             return null;
         } else if (this.object != null) {
-            System.out.println("You try to take the object" + object);
             AbstractObject object = this.takeObject(wizard.getSpells());
-
-
             if (object != null) {
                 wizard.takeObject(object);
-
-                System.out.println("You take the object" + object);
                 return null;
             }
-
-
             return null;
-        } else if (this.character != null && this.character instanceof NPC) {
+        } else if (this.character != null) {
+            return this.interactWithCharacter(this.character);
+        }
+        return null;
+    }
+
+    private ActionAbstract[] interactWithCharacter(Character character) {
+        if (character instanceof NPC) {
             String[] dialog = ((NPC) this.character).talk();
-            if (dialog != null) {
-                Display.dialog(dialog);
-                ActionTrade[] actionTrades = ((NPC) this.character).getTrades();
-                if (actionTrades != null) {
-                    return actionTrades;
-                }
-                return null;
-            }
+            if (dialog == null) return null;
+            Display.dialog(dialog);
+            ActionTrade[] actionTrades = ((NPC) this.character).getTrades();
+            return actionTrades;
+        } else if (character instanceof Enemy) {
+            return new ActionAbstract[]{((Enemy) character).getAttackAction()};
         }
         return null;
     }

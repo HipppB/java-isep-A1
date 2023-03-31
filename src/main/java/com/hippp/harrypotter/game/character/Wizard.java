@@ -54,7 +54,7 @@ public class Wizard extends Character {
 
     public void dropObjectError() {
         this.dropObject();
-        super.AttackDamage(10);
+        super.attackDamage(10);
     }
 
     public void addPotion(Potion potion) {

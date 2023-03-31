@@ -6,4 +6,6 @@ public abstract class AbstractEnemy extends Character {
     public AbstractEnemy(String name, Integer life, Integer attackDamage) {
         super(name, life, attackDamage);
     }
+
+    
 }

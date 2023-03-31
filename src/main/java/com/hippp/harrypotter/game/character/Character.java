@@ -6,6 +6,7 @@ public abstract class Character {
     @Getter
     Integer life;
 
+    @Getter
     Integer AttackDamage;
 
     @Getter
@@ -17,11 +18,8 @@ public abstract class Character {
         AttackDamage = attackDamage;
     }
 
-    public void attack(Character character) {
-    }
 
-
-    protected void AttackDamage(int i) {
+    public void attackDamage(int i) {
         this.life -= i;
     }
 }
