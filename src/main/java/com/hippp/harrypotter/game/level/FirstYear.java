@@ -49,7 +49,7 @@ public class FirstYear extends AbstractLevel {
         Spell wingardiumLeviosa = new Spell("Wingardium LeviOsa");
         ActionTrade giveSpell = new ActionTrade(null, null, new Spell[]{wingardiumLeviosa}, null);
         ActionTalk giveSpellDialog = new ActionTalk(new String[]{
-                "I will teach you the spell 'Wingardium Leviosa' !",
+                "I will teach you the spell 'Wingardium LeviOsa' !",
                 "It will allow you to move objects with your wand !",
                 "But be careful, you can't move everything ! Only some objects !",
 
@@ -75,7 +75,7 @@ public class FirstYear extends AbstractLevel {
         );
 
         super.setAvailableEnemies(new Enemy[]{
-                new Enemy("Troll", 100, 10)
+                new Enemy("Troll", 30, 10) // 30 life -> 3 rocks
         });
 
         super.setAvailableObjects(new Rock[]{
@@ -89,6 +89,10 @@ public class FirstYear extends AbstractLevel {
 
     public void checkStatus() {
 
+        if (this.getWizard().getLife() <= 0) {
+            this.isRunning = false;
+            this.isLost = true;
+        }
         if (super.getAvailableEnemies()[0].getLife() <= 0) {
             this.trollIsDead = true;
 

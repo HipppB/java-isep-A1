@@ -10,6 +10,8 @@ import lombok.Setter;
 public abstract class AbstractLevel {
 
     @Getter
+    protected boolean isLost;
+    @Getter
     boolean isRunning;
     @Getter
     @Setter
@@ -30,6 +32,7 @@ public abstract class AbstractLevel {
     public AbstractLevel(String levelName, int levelNumber, Wizard wizard) {
         this.levelName = levelName;
         this.levelNumber = levelNumber;
+        this.wizard = wizard;
     }
 
     public void init() {
@@ -43,5 +46,5 @@ public abstract class AbstractLevel {
     private void onLevelUp() {
     }
 
-   
+
 }

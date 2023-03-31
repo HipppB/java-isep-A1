@@ -4,6 +4,7 @@ import com.hippp.harrypotter.console.Display;
 import com.hippp.harrypotter.game.actions.ActionAbstract;
 import com.hippp.harrypotter.game.character.Character;
 import com.hippp.harrypotter.game.character.Wizard;
+import com.hippp.harrypotter.game.character.enemy.Enemy;
 import com.hippp.harrypotter.game.objects.AbstractObject;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,7 +62,6 @@ public class Board {
         if (this.heldObjectPosition == null && this.player.getHeldObject() != null)
             this.heldObjectPosition = this.player.getHeldObject().getPosition();
         int[] position = this.player.getHeldObject() == null ? this.playerPosition : this.heldObjectPosition;
-        System.out.println("Moving from " + position[0] + " " + position[1]); // TODO remove this line
         if (position[0] + dx < 0
                 || position[0] + dx > BOARD_HEIGHT - 1
                 || position[1] + dy < 0
@@ -85,11 +85,20 @@ public class Board {
             } else {
                 destinationCell.setInCase(this.player.getHeldObject());
             }
-            System.out.println("Moved to " + position[0] + " " + position[1]); // TODO remove this line
         } else {
-            ActionAbstract[] possibleActions = destinationCell.interactWith(this.player);
-            if (possibleActions != null) {
-                return possibleActions;
+            if (this.player.getHeldObject() == null) {
+                ActionAbstract[] possibleActions = destinationCell.interactWith(this.player);
+                if (possibleActions != null) {
+                    return possibleActions;
+                }
+            } else {
+                // drop object on ennemy
+                if (destinationCell.getCharacter() != null && destinationCell.getCharacter() instanceof Enemy) {
+                    this.player.dropObject();
+                    this.heldObjectPosition = null;
+                    destinationCell.getCharacter().attackDamage(10);
+                    return null;
+                }
             }
         }
         return null;

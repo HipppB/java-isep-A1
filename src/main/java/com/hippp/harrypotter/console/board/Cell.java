@@ -92,10 +92,10 @@ public class Cell {
             return null;
         }
 
-        if (spells.containsKey("Wingardium Leviosa")) {
-            Display.dialog(new String[]{"You try to use Wingardium Leviosa to make the object levitate"});
+        if (spells.containsKey("Wingardium LeviOsa")) {
+            Display.dialog(new String[]{"You try to use Wingardium LeviOsa to make the object levitate"});
             this.object.setPosition(this.position);
-            return this.object.takeObject(spells.get("Wingardium Leviosa"));
+            return this.object.takeObject(spells.get("Wingardium LeviOsa"));
         }
         System.out.println("You don't have a spell to take the object" + object);
         return null;

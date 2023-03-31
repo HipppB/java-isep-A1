@@ -4,7 +4,6 @@ import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.character.wand.Wand;
 import com.hippp.harrypotter.game.level.AbstractLevel;
 import com.hippp.harrypotter.game.level.FirstYear;
-import com.hippp.harrypotter.game.spell.normal.Spell;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,8 +59,6 @@ public class Game {
         this.currentLevel = firstYear;
 
         currentLevel.init();
-        Spell wingardiumLeviosa = new Spell("Wingardium Leviosa"); // TODO : remove this line
-        this.wizard.addSpell(wingardiumLeviosa); // TODO : remove this line
 
         currentLevel.start();
 

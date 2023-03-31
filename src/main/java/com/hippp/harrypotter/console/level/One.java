@@ -55,6 +55,14 @@ public class One {
             ((FirstYear) game.getCurrentLevel()).checkStatus();
 
         }
+        if (game.getCurrentLevel().isLost()) {
+            Display.printBoard(board);
+            Display.printLose();
+
+        } else {
+            Display.printBoard(board);
+//            Display.printWin(""); // TODO: add win text and go to next level
+        }
 
 
     }
@@ -66,7 +74,6 @@ public class One {
                 || !board.isVisited(0, 14)
                 || !board.isVisited(14, 0)
                 || !board.isVisited(14, 14))
-                && false //TODO remove this line
         ) {
             return false;
         }
@@ -102,7 +109,7 @@ public class One {
         );
         npcs[0].addDialogue(additionalActionTalk);
 
-        board.setPlayer(4, 7, game.getWizard()); //TODO: change 4 to 14
+        board.setPlayer(14, 7, game.getWizard());
 
     }
 
