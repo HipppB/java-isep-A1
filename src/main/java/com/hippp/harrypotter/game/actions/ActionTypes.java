@@ -6,4 +6,6 @@ public enum ActionTypes {
     VISITED,
     FIGHT,
     OBJECT,
+    TAKE,
+    DROP
 }

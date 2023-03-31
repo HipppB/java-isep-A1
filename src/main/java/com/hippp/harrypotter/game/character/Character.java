@@ -21,4 +21,7 @@ public abstract class Character {
     }
 
 
+    protected void AttackDamage(int i) {
+        this.life -= i;
+    }
 }

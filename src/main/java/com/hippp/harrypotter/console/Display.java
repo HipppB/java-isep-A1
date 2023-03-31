@@ -14,6 +14,10 @@ public class Display {
     public Display() {
     }
 
+    public static void displayMessage(String message) {
+        System.out.println(message);
+    }
+
     public static void dialog(String[] text) {
         for (String line : text) {
             System.out.println(line + "\n");
@@ -157,6 +161,10 @@ public class Display {
 
     public static void spellAquired(String spellName) {
         System.out.println("You have aquired the spell " + spellName);
+    }
+
+    public static void controllingObject(String objectName) {
+        System.out.println("You are holding " + objectName + " you can control it");
     }
 
 

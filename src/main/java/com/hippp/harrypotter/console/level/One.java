@@ -6,6 +6,7 @@ import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.game.Game;
 import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.character.NPC;
+import com.hippp.harrypotter.game.character.enemy.AbstractEnemy;
 import com.hippp.harrypotter.game.level.FirstYear;
 import com.hippp.harrypotter.game.objects.AbstractObject;
 
@@ -40,16 +41,14 @@ public class One {
 
 
             InputParser.parseActions(inputParser.waitForMove(game, board), game);
-
-
             if (this.currentStep == 0 && firstObjective(game, board)) {
                 initPhase2(game, board);
                 this.currentStep++;
             }
-            if (this.currentStep == 1 && secondObjective(game, board)) {
-                initPhase2(game, board);
-                this.currentStep++;
-            }
+//            if (this.currentStep == 1 && secondObjective(game, board)) {
+//                initPhase2(game, board);
+//                this.currentStep++;
+//            }
 
             inputParser.parseAndDisplayStats(game.getWizard());
             Display.printBoard(board);
@@ -63,10 +62,12 @@ public class One {
 
     private boolean firstObjective(Game game, Board board) {
         // If player has not visited the four corners we return false
-        if (!board.isVisited(0, 0)
+        if ((!board.isVisited(0, 0)
                 || !board.isVisited(0, 14)
                 || !board.isVisited(14, 0)
-                || !board.isVisited(14, 14)) {
+                || !board.isVisited(14, 14))
+                && false //TODO remove this line
+        ) {
             return false;
         }
         return true;
@@ -107,14 +108,18 @@ public class One {
 
     private void initPhase2(Game game, Board board) {
         // Summon Troll
-        board = new Board(15, 15);
+        board.reset();
         AbstractObject[] objects = ((FirstYear) game.getCurrentLevel()).getAvailableObjects();
 
+        AbstractEnemy[] enemies = ((FirstYear) game.getCurrentLevel()).getAvailableEnemies();
         board.setInCase(0, 2, objects[0]);
         board.setInCase(2, 8, objects[0]);
         board.setInCase(10, 14, objects[0]);
 
-        board.setPlayer(14, 7, game.getWizard());
+        board.setInCase(7, 7, enemies[0]);
+
+        board.setPlayer(0, 0, game.getWizard());
+
         Display.trollSummonedText();
     }
 }

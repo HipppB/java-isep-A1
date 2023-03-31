@@ -41,19 +41,20 @@ public class Wizard extends Character {
 
     public boolean takeObject(AbstractObject object) {
         if (object.isHoldable() && this.heldObject == null) {
+
             this.heldObject = object;
             return true;
         }
         return false;
     }
 
-    public AbstractObject throwObject(AbstractObject object) {
-        if (object.isThrowable() && this.heldObject != null) {
-            AbstractObject thrownObject = this.heldObject;
-            this.heldObject = null;
-            return thrownObject;
-        }
-        return null;
+    public void dropObject() {
+        this.heldObject = null;
+    }
+
+    public void dropObjectError() {
+        this.dropObject();
+        super.AttackDamage(10);
     }
 
     public void addPotion(Potion potion) {

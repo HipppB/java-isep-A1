@@ -24,6 +24,7 @@ public abstract class AbstractLevel {
     private NPC[] availableNPCs;
     private String levelName;
     private int levelNumber;
+    @Getter
     private Wizard wizard;
 
     public AbstractLevel(String levelName, int levelNumber, Wizard wizard) {
@@ -42,4 +43,5 @@ public abstract class AbstractLevel {
     private void onLevelUp() {
     }
 
+   
 }

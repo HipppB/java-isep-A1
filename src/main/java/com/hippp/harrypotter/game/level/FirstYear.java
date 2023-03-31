@@ -23,7 +23,6 @@ public class FirstYear extends AbstractLevel {
     public void init() {
 
         // create NPC
-
         NPC professorMcGonagall = new NPC("Professeur McGonagall");
         NPC ronWeasley = new NPC("Ron Weasley");
         NPC hermioneGranger = new NPC("Hermione Granger");
@@ -55,8 +54,6 @@ public class FirstYear extends AbstractLevel {
                 "But be careful, you can't move everything ! Only some objects !",
 
         }, new ActionTrade[]{giveSpell}, false);
-
-
         hermioneGranger.addDialogue(InfoDialog);
         hermioneGranger.addDialogue(giveSpellDialog);
 

@@ -38,12 +38,23 @@ public class InputParser {
         one.start(game, this);
     }
 
-
     public ActionAbstract[] waitForMove(Game game, Board board) {
-        String direction = ask("Which direction do you want to go?", new String[]{"North", "South", "East", "West", "Quit"}, new String[]{"n", "s", "e", "w", "q"});
+        String direction;
+        if (game.getWizard().getHeldObject() != null) {
+            Display.controllingObject(game.getWizard().getHeldObject().getName());
+            direction = ask("Which direction do you want it to go ?", new String[]{"North", "South", "East", "West", "Drop"}, new String[]{"n", "s", "e", "w", "d"});
+        } else {
+            direction = ask("Which direction do you want to go?", new String[]{"North", "South", "East", "West", "Quit"}, new String[]{"n", "s", "e", "w", "q"});
+        }
         //to lower case
-        direction = direction.toLowerCase();
+        ActionAbstract[] actions = directionSwitch(direction, board, game);
 
+        return actions;
+
+    }
+
+    private ActionAbstract[] directionSwitch(String direction, Board board, Game game) {
+        direction = direction.toLowerCase();
 
         switch (direction) {
             case "n":
@@ -59,16 +70,16 @@ public class InputParser {
             case "west":
                 return board.moveLeft();
             case "sp":
-
                 return null;
-            case "p":
+            case "d":
+                board.setHeldObjectPosition(null);
+                game.getWizard().dropObject();
                 return null;
             case "quit":
                 game.quit();
                 return null;
         }
         return null;
-
     }
 
     public void useSpell(Game game, Board board) {
@@ -140,7 +151,7 @@ public class InputParser {
     }
 
     public static String[] parseActions(ActionAbstract[] actions, Game game) {
-        System.out.println("Parsing actions" + Arrays.toString(actions));
+        System.out.println("Parsing actions" + Arrays.toString(actions)); // TODO remove line
         if (actions == null) return null;
         Map<String, String> responses;
         for (ActionAbstract action : actions) {

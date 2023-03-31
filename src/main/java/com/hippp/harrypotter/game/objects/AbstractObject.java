@@ -1,8 +1,10 @@
 package com.hippp.harrypotter.game.objects;
 
+import com.hippp.harrypotter.game.spell.normal.Spell;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @RequiredArgsConstructor
 public abstract class AbstractObject {
@@ -44,9 +46,14 @@ public abstract class AbstractObject {
     @NonNull
     private double timeBeforeRespawn; // in seconds, 0 = no respawn
 
+    @Getter
+    @Setter
+    private int[] position;
+    @Getter
+    private int size = 1;
 
-    public AbstractObject takeObject() {
-        if (this.isHoldable) {
+    public AbstractObject takeObject(Spell spell) {
+        if (this.isHoldable && spell.canMoveObject(this)) {
             return this;
         }
         return null;
@@ -56,7 +63,9 @@ public abstract class AbstractObject {
         return this.isUsable || this.isHoldable || this.isDroppable || this.isThrowable;
     }
 
+
     public AbstractObject interact() {
+
 
         return null;
     }
@@ -82,7 +91,7 @@ public abstract class AbstractObject {
                 && this.getTimeBeforeRespawn() > 0
                 && this.getDestroyedAt() + this.getTimeBeforeRespawn() < System.currentTimeMillis()) {
             this.hasBeenDestroyed = false;
-            
+
         }
     }
 
