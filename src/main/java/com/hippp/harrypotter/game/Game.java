@@ -4,6 +4,7 @@ import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.character.wand.Wand;
 import com.hippp.harrypotter.game.level.AbstractLevel;
 import com.hippp.harrypotter.game.level.FirstYear;
+import com.hippp.harrypotter.game.level.SecondYear;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,8 +60,18 @@ public class Game {
         this.currentLevel = firstYear;
 
         currentLevel.init();
-
         currentLevel.start();
+
+    }
+
+    public void startSecondYear() {
+        if (this.currentLevel != null && this.currentLevel.getLevelNumber() == 1 && this.currentLevel.isWon()) {
+            this.wizard.setYear(2);
+            SecondYear secondYear = new SecondYear(this.wizard);
+            this.currentLevel = secondYear;
+            currentLevel.init();
+            currentLevel.start();
+        }
 
     }
 

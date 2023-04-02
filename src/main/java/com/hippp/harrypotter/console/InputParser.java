@@ -17,24 +17,22 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class InputParser {
-    private Display display;
     private Scanner scanner;
 
     public InputParser() {
-        this.display = new Display();
         this.scanner = new Scanner(System.in);
     }
 
 
     public void init(Game game) {
-        display.launchText();
+        Display.launchText();
         game.setName(ask("Please enter your name: "));
         game.newWizzard();
-        display.presentationText(game.getName());
+        Display.presentationText(game.getName());
         game.assignHouseToWizard();
-        display.houseAnnouncementText(game.getWizard().getHouse().getName());
+        Display.houseAnnouncementText(game.getWizard().getHouse().getName());
         game.giveWizardWand();
-        display.wandBeforeFirstYearText();
+        Display.wandBeforeFirstYearText();
         One one = new One();
         one.start(game, this);
     }

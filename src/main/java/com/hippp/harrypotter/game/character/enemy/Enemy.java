@@ -6,6 +6,7 @@ import com.hippp.harrypotter.game.actions.ActionAttack;
 
 public class Enemy extends AbstractEnemy {
 
+
     public Enemy(String name, Integer life, Integer attackDamage) {
         super(name, life, attackDamage);
     }

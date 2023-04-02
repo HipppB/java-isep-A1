@@ -7,15 +7,20 @@ import com.hippp.harrypotter.game.objects.AbstractObject;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 public abstract class AbstractLevel {
 
     @Getter
     protected boolean isLost;
     @Getter
+    protected boolean isWon;
+    @Getter
     boolean isRunning;
     @Getter
     @Setter
-    private AbstractObject[] availableObjects;
+    private List<AbstractObject> availableObjects;
+//    private AbstractObject[] availableObjects2;
 
     @Getter
     @Setter
@@ -25,6 +30,7 @@ public abstract class AbstractLevel {
     @Setter
     private NPC[] availableNPCs;
     private String levelName;
+    @Getter
     private int levelNumber;
     @Getter
     private Wizard wizard;
@@ -41,6 +47,10 @@ public abstract class AbstractLevel {
 
     public void start() {
         // TODO: start level
+    }
+
+    public void addAvailableObject(AbstractObject object) {
+        this.availableObjects.add(object);
     }
 
     private void onLevelUp() {

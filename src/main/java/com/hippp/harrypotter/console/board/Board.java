@@ -71,7 +71,7 @@ public class Board {
         if (destinationCell.isEmpty()) {
             if (this.player.getHeldObject() != null && this.getDistance(new int[]{position[0] + dx, position[1] + dy}, this.playerPosition) > 3) {
                 Display.displayMessage("You tried to move the object too far away from you. It fell on the ground.");
-                Display.displayMessage("You were suprized by the noise and lost your concentration. You lost 10 points of health.");
+                Display.displayMessage("You were surprised by the noise and lost your concentration. You lost 10 points of health.");
                 this.heldObjectPosition = null;
                 this.player.dropObjectError();
                 return null;
@@ -87,16 +87,18 @@ public class Board {
             }
         } else {
             if (this.player.getHeldObject() == null) {
-                ActionAbstract[] possibleActions = destinationCell.interactWith(this.player);
-                if (possibleActions != null) {
-                    return possibleActions;
-                }
+
+                return destinationCell.interactWith(this.player);
             } else {
-                // drop object on ennemy
+                // drop object on enemy
                 if (destinationCell.getCharacter() != null && destinationCell.getCharacter() instanceof Enemy) {
+                    System.out.println("You dropped the object on the enemy");
                     this.player.dropObject();
                     this.heldObjectPosition = null;
                     destinationCell.getCharacter().attackDamage(10);
+                    System.out.println(destinationCell.getCharacter().getName() + " lost 10 points of health");
+                    System.out.println(destinationCell.getCharacter().getLife());
+
                     return null;
                 }
             }

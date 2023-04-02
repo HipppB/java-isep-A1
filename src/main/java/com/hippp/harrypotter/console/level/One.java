@@ -10,49 +10,45 @@ import com.hippp.harrypotter.game.character.enemy.AbstractEnemy;
 import com.hippp.harrypotter.game.level.FirstYear;
 import com.hippp.harrypotter.game.objects.AbstractObject;
 
-public class One {
-    private int currentStep;
+import java.util.List;
 
-    private Board board;
-    private InputParser inputParser;
+public class One extends LevelAbstract {
+
+
+    public One() {
+        super.board = new Board(15, 15);
+    }
 
     public void start(Game game, InputParser inputParser) {
-        this.board = new Board(15, 15);
-        this.inputParser = inputParser;
         initPhase1(game);
-
         startFirstYear(game, inputParser);
     }
 
     private void startFirstYear(Game game, InputParser inputParser) {
         // Start first year
         game.startFirstYear();
-        //display.firstYearStartText();
-        this.currentStep = 0;
+        Display.firstYearStartText();
+        int currentStep = 0;
 
-        FirstYear firstYear = ((FirstYear) game.getCurrentLevel());
         // get objects to display on board
 
 
         Display.printBoard(board);
 
         // Start first year loop
-        while (((FirstYear) game.getCurrentLevel()).isRunning()) {
+        while (game.getCurrentLevel().isRunning()) {
 
 
             InputParser.parseActions(inputParser.waitForMove(game, board), game);
-            if (this.currentStep == 0 && firstObjective(game, board)) {
+            if (currentStep == 0 && firstObjective(board)) {
                 initPhase2(game, board);
-                this.currentStep++;
+                currentStep++;
             }
-//            if (this.currentStep == 1 && secondObjective(game, board)) {
-//                initPhase2(game, board);
-//                this.currentStep++;
-//            }
+
 
             inputParser.parseAndDisplayStats(game.getWizard());
             Display.printBoard(board);
-            ((FirstYear) game.getCurrentLevel()).checkStatus();
+            ((FirstYear) game.getCurrentLevel()).checkStatus(board);
 
         }
         if (game.getCurrentLevel().isLost()) {
@@ -61,37 +57,26 @@ public class One {
 
         } else {
             Display.printBoard(board);
-//            Display.printWin(""); // TODO: add win text and go to next level
+            Display.displayMessage("You defeated the Troll ! Good job !"); // TODO: add win text and go to next level
         }
 
 
     }
 
 
-    private boolean firstObjective(Game game, Board board) {
+    private boolean firstObjective(Board board) {
         // If player has not visited the four corners we return false
-        if ((!board.isVisited(0, 0)
-                || !board.isVisited(0, 14)
-                || !board.isVisited(14, 0)
-                || !board.isVisited(14, 14))
-        ) {
-            return false;
-        }
-        return true;
-
-    }
-
-    private boolean secondObjective(Game game, Board board) {
-        // If player has not visited the four corners we return false
-        return false;
+        return board.isVisited(0, 0)
+                && board.isVisited(0, 14)
+                && board.isVisited(14, 0)
+                && board.isVisited(14, 14);
 
     }
 
     private void initPhase1(Game game) {
-        // Start first year
         board = new Board(15, 15);
         game.startFirstYear();
-        NPC[] npcs = ((FirstYear) game.getCurrentLevel()).getAvailableNPCs();
+        NPC[] npcs = game.getCurrentLevel().getAvailableNPCs();
 
         board.setInCase(10, 4, npcs[0]);
         board.setInCase(12, 3, npcs[1]);
@@ -109,23 +94,23 @@ public class One {
         );
         npcs[0].addDialogue(additionalActionTalk);
 
-        board.setPlayer(14, 7, game.getWizard());
+        board.setPlayer(4, 7, game.getWizard()); // TODO set in 14 7
 
     }
 
     private void initPhase2(Game game, Board board) {
         // Summon Troll
         board.reset();
-        AbstractObject[] objects = ((FirstYear) game.getCurrentLevel()).getAvailableObjects();
+        List<AbstractObject> objects = game.getCurrentLevel().getAvailableObjects();
 
-        AbstractEnemy[] enemies = ((FirstYear) game.getCurrentLevel()).getAvailableEnemies();
-        board.setInCase(0, 2, objects[0]);
-        board.setInCase(2, 8, objects[0]);
-        board.setInCase(10, 14, objects[0]);
+        AbstractEnemy[] enemies = game.getCurrentLevel().getAvailableEnemies();
+        board.setInCase(0, 2, objects.get(0));
+        board.setInCase(2, 8, objects.get(1));
+        board.setInCase(6, 7, objects.get(2));// TODO Set in 10 14
 
         board.setInCase(7, 7, enemies[0]);
 
-        board.setPlayer(0, 0, game.getWizard());
+        board.setPlayer(5, 7, game.getWizard()); // TODO SEt in 0 0
 
         Display.trollSummonedText();
     }

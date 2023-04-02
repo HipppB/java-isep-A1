@@ -1,6 +1,5 @@
 package com.hippp.harrypotter;
 
-import com.hippp.harrypotter.console.Display;
 import com.hippp.harrypotter.console.InputParser;
 import com.hippp.harrypotter.game.Game;
 

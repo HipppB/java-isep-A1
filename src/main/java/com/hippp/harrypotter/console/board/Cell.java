@@ -2,7 +2,6 @@ package com.hippp.harrypotter.console.board;
 
 import com.hippp.harrypotter.console.Display;
 import com.hippp.harrypotter.game.actions.ActionAbstract;
-import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.Character;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.Wizard;
@@ -24,7 +23,7 @@ public class Cell {
     private boolean isVisited;
 
     @Getter
-    private int[] position = new int[2];
+    private final int[] position;
 
     public Cell(int[] position) {
         this.object = null;
@@ -77,8 +76,7 @@ public class Cell {
             String[] dialog = ((NPC) this.character).talk();
             if (dialog == null) return null;
             Display.dialog(dialog);
-            ActionTrade[] actionTrades = ((NPC) this.character).getTrades();
-            return actionTrades;
+            return ((NPC) this.character).getTrades();
         } else if (character instanceof Enemy) {
             return new ActionAbstract[]{((Enemy) character).getAttackAction()};
         }
@@ -87,17 +85,15 @@ public class Cell {
 
 
     public AbstractObject takeObject(HashMap<String, Spell> spells) {
-        System.out.println("You try the object" + object);
         if (this.object == null) {
             return null;
         }
 
         if (spells.containsKey("Wingardium LeviOsa")) {
-            Display.dialog(new String[]{"You try to use Wingardium LeviOsa to make the object levitate"});
             this.object.setPosition(this.position);
             return this.object.takeObject(spells.get("Wingardium LeviOsa"));
         }
-        System.out.println("You don't have a spell to take the object" + object);
+        Display.displayMessage("You don't have a spell to take the object" + object);
         return null;
     }
 

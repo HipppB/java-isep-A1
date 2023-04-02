@@ -23,7 +23,7 @@ public abstract class AbstractObject {
     private boolean isConsumable;
     @Getter
     @NonNull
-    private boolean isStackable;
+    private boolean isSettableInInventory;
     @Getter
     @NonNull
     private boolean isHoldable;

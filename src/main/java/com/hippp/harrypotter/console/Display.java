@@ -35,7 +35,7 @@ public class Display {
 
     public static void clear() {
         System.out.print("\033[H\033[2J");
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.flush();
     }
 
@@ -45,6 +45,7 @@ public class Display {
             System.in.read();
             clear();
         } catch (Exception e) {
+            System.out.println("\n");
         }
     }
 

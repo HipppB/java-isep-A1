@@ -1,5 +1,6 @@
 package com.hippp.harrypotter.game.level;
 
+import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.NPC;
@@ -9,6 +10,8 @@ import com.hippp.harrypotter.game.objects.AbstractObject;
 import com.hippp.harrypotter.game.objects.Rock;
 import com.hippp.harrypotter.game.spell.normal.Spell;
 
+import java.util.Arrays;
+
 public class FirstYear extends AbstractLevel {
 
     private boolean trollIsDead = false;
@@ -16,7 +19,6 @@ public class FirstYear extends AbstractLevel {
 
     public FirstYear(Wizard wizard) {
         super("Première année", 1, wizard);
-
     }
 
     @Override
@@ -78,22 +80,24 @@ public class FirstYear extends AbstractLevel {
                 new Enemy("Troll", 30, 10) // 30 life -> 3 rocks
         });
 
-        super.setAvailableObjects(new Rock[]{
-                new Rock(true, 10),
+        super.setAvailableObjects(Arrays.asList(
+                new Rock(true),
                 new Rock(true),
                 new Rock(true)
-        });
+        ));
         this.isRunning = true;
 
     }
 
-    public void checkStatus() {
+    public void checkStatus(Board board) {
 
         if (this.getWizard().getLife() <= 0) {
             this.isRunning = false;
             this.isLost = true;
         }
         if (super.getAvailableEnemies()[0].getLife() <= 0) {
+            this.isRunning = false;
+            this.isWon = true;
             this.trollIsDead = true;
 
         } else {
