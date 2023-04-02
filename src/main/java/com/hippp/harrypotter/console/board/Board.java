@@ -123,6 +123,14 @@ public class Board {
         return this.move(0, 1);
     }
 
+    public boolean containsObject(int x, int y) {
+        return this.board[x][y].isObject();
+    }
+
+    public boolean containsObject(int x, int y, String name) {
+        return this.board[x][y].isObject(name);
+    }
+
     public boolean isVisited(int x, int y) {
         return this.board[x][y].isVisited();
     }

@@ -57,7 +57,7 @@ public class One extends LevelAbstract {
 
         } else {
             Display.printBoard(board);
-            Display.displayMessage("You defeated the Troll ! Good job !"); // TODO: add win text and go to next level
+            Display.displayMessage("You defeated the Troll ! Good job ! Let's go to the next level"); // TODO: add win text and go to next level
         }
 
 
@@ -76,12 +76,12 @@ public class One extends LevelAbstract {
     private void initPhase1(Game game) {
         board = new Board(15, 15);
         game.startFirstYear();
-        NPC[] npcs = game.getCurrentLevel().getAvailableNPCs();
+        List<NPC> npcs = game.getCurrentLevel().getAvailableNPCs();
 
-        board.setInCase(10, 4, npcs[0]);
-        board.setInCase(12, 3, npcs[1]);
-        board.setInCase(4, 9, npcs[2]);
-        board.setInCase(2, 2, npcs[3]);
+        board.setInCase(10, 4, npcs.get(0));
+        board.setInCase(12, 3, npcs.get(1));
+        board.setInCase(4, 9, npcs.get(2));
+        board.setInCase(2, 2, npcs.get(3));
 
         ActionTalk additionalActionTalk = new ActionTalk(
                 new String[]{
@@ -92,7 +92,7 @@ public class One extends LevelAbstract {
                         "I won't try to find him, I'm not brave enough !",
                 }, null, false
         );
-        npcs[0].addDialogue(additionalActionTalk);
+        npcs.get(0).addDialogue(additionalActionTalk);
 
         board.setPlayer(4, 7, game.getWizard()); // TODO set in 14 7
 
@@ -103,12 +103,12 @@ public class One extends LevelAbstract {
         board.reset();
         List<AbstractObject> objects = game.getCurrentLevel().getAvailableObjects();
 
-        AbstractEnemy[] enemies = game.getCurrentLevel().getAvailableEnemies();
+        List<AbstractEnemy> enemies = game.getCurrentLevel().getAvailableEnemies();
         board.setInCase(0, 2, objects.get(0));
         board.setInCase(2, 8, objects.get(1));
         board.setInCase(6, 7, objects.get(2));// TODO Set in 10 14
 
-        board.setInCase(7, 7, enemies[0]);
+        board.setInCase(7, 7, enemies.get(0));
 
         board.setPlayer(5, 7, game.getWizard()); // TODO SEt in 0 0
 

@@ -1,18 +1,23 @@
 package com.hippp.harrypotter.game.level;
 
-import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.Wizard;
 import com.hippp.harrypotter.game.character.enemy.Enemy;
+import com.hippp.harrypotter.game.objects.AbstractObject;
 import com.hippp.harrypotter.game.objects.GodicSword;
 import com.hippp.harrypotter.game.objects.Rock;
+import com.hippp.harrypotter.game.objects.TomJournal;
+
+import java.util.List;
 
 public class SecondYear extends AbstractLevel {
 
     private boolean objectifSword = false;
     private boolean objectifRocks = false;
     private boolean basilicIsDead = false;
+    private AbstractObject requiredObject;
+
 
     public SecondYear(Wizard wizard) {
         super("Second Year", 2, wizard);
@@ -21,17 +26,22 @@ public class SecondYear extends AbstractLevel {
     @Override
     public void init() {
         Enemy enemy = new Enemy("Basilic", 100, 10);
-        GodicSword godicSword = new GodicSword();
-        enemy.addObjectNeededToKill(godicSword);
 
-        this.setAvailableEnemies(new Enemy[]{enemy});
 
+        this.setAvailableEnemies(List.of(new Enemy[]{enemy}));
+        for (int i = 0; i < 8; i++) {
+            this.addAvailableObject(new Rock());
+        }
         if (super.getWizard().getHouse().getName().equals("Gryffindor")) {
+            requiredObject = new GodicSword();
+            enemy.addObjectNeededToKill(requiredObject);
             initIfGryffindor();
         } else {
+            requiredObject = new TomJournal();
             initIfNotGryffindor();
         }
 
+        this.isRunning = true;
 
     }
 
@@ -51,11 +61,7 @@ public class SecondYear extends AbstractLevel {
                 }, null, false);
         npc.addDialogue(getWarningFromHagrid);
 
-        this.setAvailableNPCs(new NPC[]{npc});
-
-        for (int i = 0; i < 8; i++) {
-            this.addAvailableObject(new Rock());
-        }
+        this.setAvailableNPCs(List.of(new NPC[]{npc}));
 
 
     }
@@ -91,25 +97,32 @@ public class SecondYear extends AbstractLevel {
 
         hagrid.addDialogue(howToFromHagrid);
 
+        this.setAvailableNPCs(List.of(new NPC[]{hagrid}));
 
     }
 
-    public void checkStatus(Board board) {
+
+    public void summonObject() {
+        if (this.objectifRocks) return;
+        this.addAvailableObject(requiredObject);
+        this.objectifRocks = true;
+
+    }
+
+    public void checkStatus() {
         if (this.getWizard().getLife() <= 0) {
             this.isRunning = false;
             this.isLost = true;
         }
-        if (this.getAvailableEnemies()[0].getLife() <= 0) {
+        if ((this.objectifSword && this.getAvailableEnemies().get(0).getLife() <= 0)
+                || this.requiredObject.isDestroyed()) {
             this.isRunning = false;
             this.isWon = true;
             this.basilicIsDead = true;
         }
 
-        if (this.objectifSword) {
 
-        } else {
-
-        }
     }
+
 
 }

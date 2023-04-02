@@ -63,6 +63,15 @@ public class Display {
         });
     }
 
+    public static void secondYearStartText() {
+        dialog(new String[]{
+                "You are now in your second year at Hogwarts!",
+                "Unfortunately you have to accomplish a task to survive the year.",
+                "You must kill the Basilisk, a monster that lives in the Chamber of Secrets.",
+                "Welcome to the Chamber of Secrets!"
+        });
+    }
+
     public static void houseAnnouncementText(String house) {
         dialog(new String[]{
                 "You have been sorted into " + house + "!",
@@ -177,4 +186,7 @@ public class Display {
     }
 
 
+    public static void gameOver() {
+        System.out.println("Game Over");
+    }
 }

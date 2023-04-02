@@ -36,6 +36,9 @@ public class Wizard extends Character {
     @Getter
     private HashMap<Potion, Integer> potions;
 
+    @Getter
+    private HashMap<String, AbstractObject> objects; // TODO : Create inventory class
+
     public void defend() {
     }
 

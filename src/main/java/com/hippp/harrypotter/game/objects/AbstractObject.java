@@ -1,6 +1,6 @@
 package com.hippp.harrypotter.game.objects;
 
-import com.hippp.harrypotter.game.spell.normal.Spell;
+import com.hippp.harrypotter.game.character.Wizard;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,8 @@ public abstract class AbstractObject {
     @NonNull
     private boolean isThrowable;
     @Getter
-    private boolean hasBeenDestroyed = false;
+    boolean isDestroyed;
+
     @Getter
     private long destroyedAt;
     @Getter
@@ -52,11 +53,8 @@ public abstract class AbstractObject {
     @Getter
     private int size = 1;
 
-    public AbstractObject takeObject(Spell spell) {
-        if (this.isHoldable && spell.canMoveObject(this)) {
-            return this;
-        }
-        return null;
+    public AbstractObject takeObject(Wizard wizard) {
+        return this;
     }
 
     public boolean isInteractable() {
@@ -87,10 +85,10 @@ public abstract class AbstractObject {
     }
 
     public void respawn() {
-        if (this.isHasBeenDestroyed()
+        if (this.isDestroyed
                 && this.getTimeBeforeRespawn() > 0
                 && this.getDestroyedAt() + this.getTimeBeforeRespawn() < System.currentTimeMillis()) {
-            this.hasBeenDestroyed = false;
+            this.isDestroyed = false;
 
         }
     }

@@ -40,6 +40,10 @@ public class Cell {
         return this.object != null;
     }
 
+    public boolean isObject(String name) {
+        return this.object != null && this.object.getName().equals(name);
+    }
+
     public boolean isCharacter() {
         return this.character != null;
     }
@@ -59,19 +63,19 @@ public class Cell {
         if (isEmpty()) {
             return null;
         } else if (this.object != null) {
-            AbstractObject object = this.takeObject(wizard.getSpells());
+            AbstractObject object = this.takeObject(wizard);
             if (object != null) {
                 wizard.takeObject(object);
                 return null;
             }
             return null;
         } else if (this.character != null) {
-            return this.interactWithCharacter(this.character);
+            return this.interactWithCharacter(this.character, wizard);
         }
         return null;
     }
 
-    private ActionAbstract[] interactWithCharacter(Character character) {
+    private ActionAbstract[] interactWithCharacter(Character character, Wizard wizard) {
         if (character instanceof NPC) {
             String[] dialog = ((NPC) this.character).talk();
             if (dialog == null) return null;
@@ -84,14 +88,16 @@ public class Cell {
     }
 
 
-    public AbstractObject takeObject(HashMap<String, Spell> spells) {
+    public AbstractObject takeObject(Wizard wizard) {
         if (this.object == null) {
             return null;
         }
 
+
+        HashMap<String, Spell> spells = wizard.getSpells();
         if (spells.containsKey("Wingardium LeviOsa")) {
             this.object.setPosition(this.position);
-            return this.object.takeObject(spells.get("Wingardium LeviOsa"));
+            return this.object.takeObject(wizard);
         }
         Display.displayMessage("You don't have a spell to take the object" + object);
         return null;

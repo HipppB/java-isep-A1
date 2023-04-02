@@ -7,11 +7,17 @@ com/hippp/chessgame/Chess.class
 com/hippp/chessgame/Player.class
 com/hippp/Main.class
 com/hippp/chessgame/piece/Queen.class
+com/hippp/harrypotter/console/level/LevelAbstract.class
+com/hippp/harrypotter/game/level/SecondYear.class
 com/hippp/chessgame/piece/Piece.class
 module-info.class
 com/hippp/chessgame/view/Cell.class
 com/hippp/chessgame/Main.class
 com/hippp/chessgame/piece/Knight.class
+com/hippp/harrypotter/game/objects/TomJournal.class
 com/hippp/chessgame/view/Board.class
 com/hippp/chessgame/piece/Bishop.class
 com/hippp/chessgame/Cell.class
+com/hippp/harrypotter/console/level/LevelInterface.class
+com/hippp/harrypotter/console/level/Two.class
+com/hippp/harrypotter/game/objects/GodicSword.class

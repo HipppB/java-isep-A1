@@ -11,6 +11,7 @@ import com.hippp.harrypotter.game.objects.Rock;
 import com.hippp.harrypotter.game.spell.normal.Spell;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class FirstYear extends AbstractLevel {
 
@@ -68,17 +69,17 @@ public class FirstYear extends AbstractLevel {
         professorFlitwick.addDialogue(infoDialog2);
 
         super.setAvailableNPCs(
-                new NPC[]{
+                List.of(new NPC[]{
                         professorMcGonagall,
                         ronWeasley,
                         hermioneGranger,
                         professorFlitwick
-                }
+                })
         );
 
-        super.setAvailableEnemies(new Enemy[]{
+        super.setAvailableEnemies(List.of(new Enemy[]{
                 new Enemy("Troll", 30, 10) // 30 life -> 3 rocks
-        });
+        }));
 
         super.setAvailableObjects(Arrays.asList(
                 new Rock(true),
@@ -95,7 +96,7 @@ public class FirstYear extends AbstractLevel {
             this.isRunning = false;
             this.isLost = true;
         }
-        if (super.getAvailableEnemies()[0].getLife() <= 0) {
+        if (super.getAvailableEnemies().get(0).getLife() <= 0) {
             this.isRunning = false;
             this.isWon = true;
             this.trollIsDead = true;

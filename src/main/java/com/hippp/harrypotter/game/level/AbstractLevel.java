@@ -7,6 +7,7 @@ import com.hippp.harrypotter.game.objects.AbstractObject;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractLevel {
@@ -24,11 +25,11 @@ public abstract class AbstractLevel {
 
     @Getter
     @Setter
-    private AbstractEnemy[] availableEnemies;
+    private List<AbstractEnemy> availableEnemies;
 
     @Getter
     @Setter
-    private NPC[] availableNPCs;
+    private List<NPC> availableNPCs;
     private String levelName;
     @Getter
     private int levelNumber;
@@ -50,6 +51,9 @@ public abstract class AbstractLevel {
     }
 
     public void addAvailableObject(AbstractObject object) {
+        if (this.availableObjects == null) {
+            this.availableObjects = new ArrayList<>();
+        }
         this.availableObjects.add(object);
     }
 

@@ -2,6 +2,7 @@ package com.hippp.harrypotter.console;
 
 import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.console.level.One;
+import com.hippp.harrypotter.console.level.Two;
 import com.hippp.harrypotter.game.Game;
 import com.hippp.harrypotter.game.actions.ActionAbstract;
 import com.hippp.harrypotter.game.actions.ActionAttack;
@@ -35,6 +36,19 @@ public class InputParser {
         Display.wandBeforeFirstYearText();
         One one = new One();
         one.start(game, this);
+        checkIfWizardIsDead(game);
+        Two two = new Two();
+        two.start(game, this);
+        checkIfWizardIsDead(game);
+
+
+    }
+
+    public void checkIfWizardIsDead(Game game) {
+        if (game.getWizard().getLife() <= 0) {
+            Display.gameOver();
+            game.quit();
+        }
     }
 
     public ActionAbstract[] waitForMove(Game game, Board board) {
