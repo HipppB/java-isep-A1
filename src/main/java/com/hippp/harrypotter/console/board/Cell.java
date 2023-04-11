@@ -50,6 +50,10 @@ public class Cell {
 
     public void setInCase(AbstractObject object) {
         this.object = object;
+        if (this.object != null) {
+            this.object.setPosition(this.position);
+
+        }
     }
 
     public void setInCase(Character character) {
@@ -60,10 +64,12 @@ public class Cell {
     }
 
     ActionAbstract[] interactWith(Wizard wizard) {
+        System.out.println("INTERACTING");
         if (isEmpty()) {
             return null;
         } else if (this.object != null) {
             AbstractObject object = this.takeObject(wizard);
+            System.out.println("INTERACTING 2" + object.getName());
             if (object != null) {
                 wizard.takeObject(object);
                 return null;
@@ -95,8 +101,12 @@ public class Cell {
 
 
         HashMap<String, Spell> spells = wizard.getSpells();
+        System.out.println(spells);
         if (spells.containsKey("Wingardium LeviOsa")) {
+            System.out.println("Using Wingardium LeviOsa");
+            System.out.println(this.position[0] + " " + this.position[1]);
             this.object.setPosition(this.position);
+            System.out.println(this.object.getPosition()[0] + " " + this.object.getPosition()[1]);
             return this.object.takeObject(wizard);
         }
         Display.displayMessage("You don't have a spell to take the object" + object);

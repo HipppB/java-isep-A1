@@ -6,6 +6,9 @@ import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.NPC;
 import com.hippp.harrypotter.game.character.enemy.Enemy;
+import com.hippp.harrypotter.game.objects.GodicSword;
+import com.hippp.harrypotter.game.objects.Rock;
+import com.hippp.harrypotter.game.objects.TomJournal;
 import com.hippp.harrypotter.game.spell.normal.Spell;
 
 import java.util.HashMap;
@@ -124,7 +127,15 @@ public class Display {
                     System.out.print("  ");
                 } else {
                     if (cells[i][j].getObject() != null) {
-                        System.out.print("O ");
+                        if (cells[i][j].getObject() instanceof Rock)
+                            System.out.print("\uD83E\uDEA8");
+                        else if (cells[i][j].getObject() instanceof TomJournal) {
+                            System.out.print("\uD83D\uDCD6");
+                        } else if (cells[i][j].getObject() instanceof GodicSword) {
+                            System.out.print("\uD83D\uDDE1");
+                        } else
+                            System.out.print("O ");
+
                     } else if (cells[i][j].getCharacter() != null) {
                         if (cells[i][j].getCharacter() instanceof Enemy) {
                             System.out.print("E ");

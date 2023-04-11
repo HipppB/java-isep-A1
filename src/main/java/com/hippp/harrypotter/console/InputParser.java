@@ -35,11 +35,12 @@ public class InputParser {
         game.giveWizardWand();
         Display.wandBeforeFirstYearText();
         One one = new One();
-        one.start(game, this);
+//        one.start(game, this);
+        game.devFinishFirstYear();
         checkIfWizardIsDead(game);
         Two two = new Two();
         two.start(game, this);
-        checkIfWizardIsDead(game);
+//        checkIfWizardIsDead(game);
 
 
     }

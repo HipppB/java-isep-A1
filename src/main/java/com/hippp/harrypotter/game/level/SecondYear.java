@@ -30,7 +30,7 @@ public class SecondYear extends AbstractLevel {
 
         this.setAvailableEnemies(List.of(new Enemy[]{enemy}));
         for (int i = 0; i < 8; i++) {
-            this.addAvailableObject(new Rock());
+            this.addAvailableObject(new Rock(true));
         }
         if (super.getWizard().getHouse().getName().equals("Gryffindor")) {
             requiredObject = new GodicSword();
@@ -109,6 +109,7 @@ public class SecondYear extends AbstractLevel {
 
     }
 
+    @Override
     public void checkStatus() {
         if (this.getWizard().getLife() <= 0) {
             this.isRunning = false;

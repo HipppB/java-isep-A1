@@ -48,7 +48,7 @@ public class One extends LevelAbstract {
 
             inputParser.parseAndDisplayStats(game.getWizard());
             Display.printBoard(board);
-            ((FirstYear) game.getCurrentLevel()).checkStatus(board);
+            ((FirstYear) game.getCurrentLevel()).checkStatus();
 
         }
         if (game.getCurrentLevel().isLost()) {

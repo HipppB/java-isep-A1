@@ -61,4 +61,9 @@ public abstract class AbstractLevel {
     }
 
 
+    public void checkStatus() {
+    }
+
+    public void forceFinish() {
+    }
 }

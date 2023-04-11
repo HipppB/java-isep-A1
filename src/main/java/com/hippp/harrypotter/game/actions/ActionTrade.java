@@ -26,9 +26,6 @@ public class ActionTrade extends ActionAbstract {
         this.dialog = dialog;
     }
 
-    public Potion[] getGivenPotions() {
-        return givenPotions;
-    }
 
     public void execute(Wizard wizard) {
         // give the potions to the wizard
@@ -37,7 +34,7 @@ public class ActionTrade extends ActionAbstract {
                 wizard.addPotion(potion);
             }
         if (this.givenSpells != null)
-            
+
             for (Spell spell : this.givenSpells) {
                 wizard.addSpell(spell);
             }

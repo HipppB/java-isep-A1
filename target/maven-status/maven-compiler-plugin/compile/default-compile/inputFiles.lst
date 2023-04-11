@@ -3,15 +3,19 @@
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/Main.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/console/board/Board.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/house/House.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/console/level/Two.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/Knight.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/console/level/LevelInterface.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/spell/AbstractSpell.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/SortingHat.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/actions/ActionTalk.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/console/level/LevelAbstract.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/objects/AbstractObject.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/Piece.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/enemy/AbstractEnemy.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/Character.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/console/board/Cell.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/objects/GodicSword.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/view/Display.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/King.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/wand/Wand.java
@@ -21,6 +25,8 @@
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/Chess.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/wand/Core.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/actions/ActionTakeObject.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/objects/TomJournal.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/actions/ActionAttack.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/Pawn.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/Player.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/Rook.java
@@ -39,6 +45,7 @@
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/character/NPC.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/level/AbstractLevel.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/piece/Queen.java
+/Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/level/SecondYear.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/chessgame/Main.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/com/hippp/harrypotter/game/Game.java
 /Users/hippolytebach/IdeaProjects/ISEP_A1/src/main/java/module-info.java

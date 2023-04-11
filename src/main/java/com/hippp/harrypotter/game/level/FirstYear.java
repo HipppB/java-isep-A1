@@ -1,6 +1,5 @@
 package com.hippp.harrypotter.game.level;
 
-import com.hippp.harrypotter.console.board.Board;
 import com.hippp.harrypotter.game.actions.ActionTalk;
 import com.hippp.harrypotter.game.actions.ActionTrade;
 import com.hippp.harrypotter.game.character.NPC;
@@ -90,8 +89,11 @@ public class FirstYear extends AbstractLevel {
 
     }
 
-    public void checkStatus(Board board) {
+    @Override
+    public void checkStatus() {
 
+        this.isRunning = false;
+        this.isLost = false;
         if (this.getWizard().getLife() <= 0) {
             this.isRunning = false;
             this.isLost = true;
@@ -106,6 +108,17 @@ public class FirstYear extends AbstractLevel {
                 object.respawn();
             }
         }
+    }
+
+    @Override
+    public void forceFinish() { // TODO : remove this method
+        // Give the player all the objects
+        Spell wingardiumLeviosa = new Spell("Wingardium LeviOsa");
+
+        this.getWizard().addSpell(wingardiumLeviosa);
+        this.isRunning = false;
+        this.isWon = true;
+        this.trollIsDead = true;
     }
 
 

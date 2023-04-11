@@ -25,9 +25,8 @@ public class Game {
     }
 
     public void newWizzard() {
-        if (this.name == null) {
-            this.name = "Harry Potter";
-        }
+        if (this.name == null) this.name = "Harry Potter";
+
         this.wizard = new Wizard(this.name);
     }
 
@@ -50,7 +49,7 @@ public class Game {
             throw new RuntimeException("Wizard already has a house");
         }
         SortingHat sortingHat = new SortingHat();
-        this.wizard.setHouse(sortingHat.assign(this.wizard));
+        this.wizard.setHouse(sortingHat.assign());
     }
 
 
@@ -64,13 +63,26 @@ public class Game {
 
     }
 
+    public void devFinishFirstYear() { // TODO: remove
+        this.wizard.setYear(1);
+        FirstYear firstYear = new FirstYear(this.wizard);
+        this.currentLevel = firstYear;
+        this.currentLevel.forceFinish();
+
+    }
+
     public void startSecondYear() {
+        System.out.println("Current level: " + this.currentLevel.getLevelNumber());
+        System.out.println("Current level won: " + this.currentLevel.isWon());
+        
         if (this.currentLevel != null && this.currentLevel.getLevelNumber() == 1 && this.currentLevel.isWon()) {
             this.wizard.setYear(2);
             SecondYear secondYear = new SecondYear(this.wizard);
             this.currentLevel = secondYear;
             currentLevel.init();
             currentLevel.start();
+        } else {
+            throw new RuntimeException("You can't start second year yet");
         }
 
     }
